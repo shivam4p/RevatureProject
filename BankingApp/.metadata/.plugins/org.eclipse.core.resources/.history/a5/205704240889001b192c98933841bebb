@@ -1,0 +1,5 @@
+package com.project.banking.exception;
+
+public class BusinessException {
+
+}

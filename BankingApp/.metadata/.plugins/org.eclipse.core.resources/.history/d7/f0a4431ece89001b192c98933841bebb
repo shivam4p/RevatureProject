@@ -1,0 +1,5 @@
+package com.project.banking.dao;
+
+public class AccountServiceDAO {
+
+}

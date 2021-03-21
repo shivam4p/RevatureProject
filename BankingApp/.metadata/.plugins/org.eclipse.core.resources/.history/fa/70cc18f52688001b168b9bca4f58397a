@@ -1,0 +1,74 @@
+package com.project.banking.main;
+
+import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
+public class BankingMain {
+	private static Logger log=Logger.getLogger(BankingMain.class);
+
+	public static void main(String[] args) {
+	log.info("Welcome to the SP Banking App");
+	log.info("-----------------------------");
+	int choice = 0;
+	Scanner scanner = new Scanner(System.in);
+	do {
+		log.info("Please select a choice from below:");
+		log.info("1) New User Sign Up");
+		log.info("2) Existing User Sign In");
+		log.info("3) Exit Benking App");
+		try {
+			choice = Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+		}
+		switch(choice) {
+		case 1: 
+			log.info("Currently Under Construction");
+			break;
+			
+		case 2: 
+			int user = 0;
+			do {
+				log.info("Who Are You Signing In As:");
+				log.info("1) Customer");
+				log.info("2) Employee");
+				log.info("3) Exit Sign In Screen");
+				try {
+					user = Integer.parseInt(scanner.nextLine());
+				} catch (NumberFormatException e) {
+				}
+				switch(user) {
+				case 1:
+					log.info("Currently Under Construction");
+					break;
+					
+				case 2:
+					log.info("Currently Under Construction");
+					break;
+					
+				case 3:
+					log.info("Exiting Sign In Screen");
+					break;
+					
+				default:
+					log.info("Invalid Selection, Please Choose Either 1, 2, or 3.");
+					break;
+				}
+			}while(user != 3);
+			
+			break;
+			
+		case 3: 
+			log.info("Thank You For Using The SP Banking App. Hope To See You Again.");
+			break;
+			
+		default: 
+			log.info("Invalid Selection, Please Choose Either 1, 2, or 3.");
+			break;
+		
+		}
+	}while (choice != 3);
+
+	}
+
+}

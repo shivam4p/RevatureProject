@@ -1,0 +1,51 @@
+package com.project.banking.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.project.banking.dao.UserServiceDAO;
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Customer_Details;
+import com.project.banking.models.Login_Details;
+
+import jdk.internal.org.jline.utils.Log;
+
+import com.project.banking.dbutil.PostgresConnection;
+
+public class UserServiceDAOImpl implements UserServiceDAO{
+
+	@Override
+	public int getLogin(Login_Details login) throws BusinessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int newUser(Customer_Details newUser) throws BusinessException {
+		int c=0;
+		//try with resources available from java 1.7 and above
+		//this block doesnt require finally to release the connection, the jvm will take care of releasing the connection
+		try(Connection connection=PostgresConnection.getConnection()){
+			String sql = "insert into banking_app_schema.customer_details(c_id,firstname,lastname,ssn,streetaddress,city,state,username,dob,password) values(?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setInt(1,newUser.getC_id());
+			preparedStatement.setString(2, newUser.getFirstname());
+			preparedStatement.setString(3, newUser.getLastname());
+			preparedStatement.setString(4, newUser.getSsn());
+			preparedStatement.setString(5, newUser.getStreetaddress());
+			preparedStatement.setString(6, newUser.getCity());
+			preparedStatement.setString(7, newUser.getState());
+			preparedStatement.setString(8, newUser.getLogin_details().getUsername());
+			preparedStatement.setString(9, newUser.getDob());
+			preparedStatement.setString(10, newUser.getLogin_details().getPassword());
+			c=preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			//Log.warn(e);
+			throw new BusinessException("Internal Error");
+		}
+		
+		return c;
+	}
+
+}

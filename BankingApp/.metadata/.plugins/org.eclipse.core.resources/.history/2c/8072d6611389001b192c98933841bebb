@@ -1,0 +1,15 @@
+package com.project.banking.services.impl;
+
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Login_Details;
+import com.project.banking.services.UserService;
+
+public class UserServiceImpl implements UserService {
+
+	@Override
+	public int getLogin(Login_Details login) throws BusinessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

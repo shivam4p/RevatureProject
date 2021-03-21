@@ -1,0 +1,15 @@
+package com.project.banking.services;
+
+import java.util.List;
+
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Account_Details;
+
+public interface AccountService {
+
+	public List<Account_Details> getAccountBalance(int a_id, int c_id) throws BusinessException; 
+	public List<Account_Details> getCustomerAccounts(int c_id) throws BusinessException; 
+	public int conductTransaction(int a_id, String t_type, int amount) throws BusinessException;
+	
+	
+}

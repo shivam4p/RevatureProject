@@ -1,0 +1,13 @@
+package com.project.banking.main;
+
+import org.apache.log4j.Logger;
+
+public class BankingMain {
+	private static Logger log=Logger.getLogger(BankingMain.class);
+
+	public static void main(String[] args) {
+	log.info("Hello");
+
+	}
+
+}

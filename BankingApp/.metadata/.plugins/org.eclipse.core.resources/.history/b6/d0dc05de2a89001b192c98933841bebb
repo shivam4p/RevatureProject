@@ -1,0 +1,59 @@
+package com.project.banking.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.project.banking.dao.UserServiceDAO;
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Customer_Details;
+import com.project.banking.models.Login_Details;
+
+import jdk.internal.org.jline.utils.Log;
+
+import com.project.banking.dbutil.PostgresConnection;
+
+public class UserServiceDAOImpl implements UserServiceDAO{
+
+	@Override
+	public int getLogin(Login_Details login) throws BusinessException {
+		int c=0;
+		try(Connection connection=PostgresConnection.getConnection()){
+			String sql = "insert into banking_app_schema.login_details(username, password) values values(?,?)";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setString(1, login.getUsername());
+			preparedStatement.setString(2, login.getPassword());
+			c=preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			//Log.warn(e);
+			throw new BusinessException("Internal Error here");
+		}
+		
+		return c;
+	}
+
+	@Override
+	public int newUser(Customer_Details newUser) throws BusinessException {
+		int c=0;
+		try(Connection connection=PostgresConnection.getConnection()){
+			String sql = "insert into banking_app_schema.customer_details(firstname,lastname,ssn,streetaddress,city,state,username,dob,password) values(?,?,?,?,?,?,?,?,?)";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setString(1, newUser.getFirstname());
+			preparedStatement.setString(2, newUser.getLastname());
+			preparedStatement.setString(3, newUser.getSsn());
+			preparedStatement.setString(4, newUser.getStreetaddress());
+			preparedStatement.setString(5, newUser.getCity());
+			preparedStatement.setString(6, newUser.getState());
+			preparedStatement.setString(7, newUser.getLogin_details().getUsername());
+			preparedStatement.setString(8, newUser.getDob());
+			preparedStatement.setString(9, newUser.getLogin_details().getPassword());
+			c=preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			//Log.warn(e);
+			throw new BusinessException("Internal Error");
+		}
+		
+		return c;
+	}
+
+}

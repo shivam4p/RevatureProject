@@ -1,0 +1,55 @@
+package com.project.banking.services.impl;
+
+import java.util.List;
+
+import com.project.banking.dao.UserServiceDAO;
+import com.project.banking.dao.impl.UserServiceDAOImpl;
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Customer_Details;
+import com.project.banking.models.Login_Details;
+import com.project.banking.services.UserService;
+
+public class UserServiceImpl implements UserService {
+	private UserServiceDAO userservicedao = new UserServiceDAOImpl();
+	
+	@Override
+	public int getLogin(Login_Details login) throws BusinessException {
+		if(!UserValidation.isValidUsername(login.getUsername())) {
+			throw new BusinessException("Entered Username "+login.getUsername()+" is invalid");
+		}
+		if(!UserValidation.isValidPassword(login.getPassword())) {
+			throw new BusinessException("Entered Password "+login.getPassword()+" is invalid");
+		}
+		return userservicedao.getLogin(login);
+	}
+
+	@Override
+	public int newUser(Customer_Details newUser) throws BusinessException {
+		if(!UserValidation.isValidSSN(newUser.getSsn())) {
+			throw new BusinessException("Entered SSN "+newUser.getSsn()+" is invalid");
+		}
+		if(!UserValidation.isValidDOB(newUser.getDob())) {
+			throw new BusinessException("Entered Date of Birth "+newUser.getDob()+" is invalid");
+		}
+		if(!UserValidation.isValidState(newUser.getState())) {
+			throw new BusinessException("Entered State Initials "+newUser.getState()+" is invalid");
+		}
+		if(!UserValidation.isValidUsername(newUser.getUsername())) {
+			throw new BusinessException("Entered Username "+newUser.getUsername()+" is invalid");
+		}
+		if(!UserValidation.isValidPassword(newUser.getPassword())) {
+			throw new BusinessException("Entered Password "+newUser.getPassword()+" is invalid");
+		}
+		return userservicedao.newUser(newUser);
+	}
+
+	@Override
+	public List<Login_Details> getAllLogin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+}

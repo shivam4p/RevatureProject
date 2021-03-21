@@ -1,0 +1,9 @@
+package com.project.banking.services;
+
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Login_Details;
+
+public interface UserService {
+
+	public int getLogin(Login_Details login) throws BusinessException;
+}

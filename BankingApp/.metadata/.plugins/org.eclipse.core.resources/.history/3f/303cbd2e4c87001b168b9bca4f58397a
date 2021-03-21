@@ -1,0 +1,5 @@
+package com.project.banking.dbutil;
+
+public class PostgresConnection {
+
+}

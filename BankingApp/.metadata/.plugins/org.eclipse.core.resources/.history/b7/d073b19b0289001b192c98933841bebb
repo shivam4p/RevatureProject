@@ -1,0 +1,5 @@
+package com.project.banking.models;
+
+public class Employee_Details {
+
+}

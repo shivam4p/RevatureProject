@@ -1,0 +1,10 @@
+package com.project.banking.dao;
+
+import java.util.List;
+
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Account_Details;
+
+public interface AccountServiceDAO {
+	public List<Account_Details> getAccountBalance() throws BusinessException; 
+}

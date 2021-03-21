@@ -1,0 +1,25 @@
+package com.project.banking.main;
+
+import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
+public class BankingMain {
+	private static Logger log=Logger.getLogger(BankingMain.class);
+
+	public static void main(String[] args) {
+	log.info("Welcome to the SP Banking App");
+	log.info("-----------------------------");
+	int choice = 0;
+	Scanner scanner = new Scanner(System.in);
+	do {
+		log.info("Please select a choice from below:");
+		log.info("1) New User Sign Up");
+		log.info("2) Existing User Sign In");
+		log.info("3) Exit Benking App");
+		
+	}while (choice != 3);
+
+	}
+
+}

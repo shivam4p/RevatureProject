@@ -1,0 +1,5 @@
+package com.project.banking.models;
+
+public class Custome_Details {
+
+}
