@@ -10,6 +10,7 @@ import com.project.banking.exception.BusinessException;
 import com.project.banking.models.Account_Details;
 import com.project.banking.models.Customer_Details;
 import com.project.banking.models.Login_Details;
+import com.project.banking.models.Transaction_Details;
 import com.project.banking.services.AccountService;
 import com.project.banking.services.UserService;
 import com.project.banking.services.impl.AccountServiceImpl;
@@ -38,70 +39,74 @@ public class BankingMain {
 			case 1:
 				Customer_Details customer = new Customer_Details();
 				Login_Details login = new Login_Details();
+				int creation = 0;
+				do {
+					log.info("Please Create A New Login 1st, Then Create Your Account With Personal Info");
+					log.info("1) Create Login Details");
+					log.info("2) Create Account With Personal Info");
+					log.info("3) Exit");
+					try {
+						creation = Integer.parseInt(scanner.nextLine());
+					} catch (NumberFormatException e) {
+					}
+					switch (creation) {
+					case 1:
+						log.info("Please Enter Unique Username. Has to be greater than 5 letters/numbers:");
+						login.setUsername(scanner.nextLine());
+						log.info("Please Enter Unique Password. Has to be greater than 5 letters/numbers:");
+						login.setPassword(scanner.nextLine());
+						try {
+							if (userservice.getLogin(login) == 1) {
+								log.info("Log In Info Successfully Created With Below Details:");
+								log.info("User Name:" +login.getUsername()+ "  Password:" + login.getPassword());
+							}
+						} catch (BusinessException e) {
+							log.warn(e.getMessage());
+						}
+
+						break;
+						
+					case 2:
+						log.info("Please Enter First Name:");
+						customer.setFirstname(scanner.nextLine());
+						log.info("Please Enter Last Name:");
+						customer.setLastname(scanner.nextLine());
+						log.info("Please Enter Social Security Number (xxx-xx-xxxx). Include '-':");
+						customer.setSsn(scanner.nextLine());
+						log.info("Please Enter Street Address:");
+						customer.setStreetaddress(scanner.nextLine());
+						log.info("Please Enter City:");
+						customer.setCity(scanner.nextLine());
+						log.info("Please Enter State (CAPITAL Initials):");
+						customer.setState(scanner.nextLine());
+						log.info("Please Enter Date of Birth (mm/dd/yyyy). Include 0 if needed beforehand and '/' :");
+						customer.setDob(scanner.nextLine());
+						log.info("Please Enter Created User Name:");
+						customer.setUsername(scanner.nextLine());
+						log.info("Please Enter Created Password:");
+						customer.setPassword(scanner.nextLine());
+						
+						try {
+							if (userservice.newUser(customer) == 1) {
+								log.info("New User Created Successfully With Below Details:");
+								log.info("Name:"+customer.getFirstname()+" "+customer.getLastname()+"Address: "+customer.getStreetaddress()+","+customer.getCity()+","+customer.getState()+"   SSN:"+customer.getSsn()+"   User Name:" + customer.getUsername());
+							}
+						} catch (BusinessException e) {
+							log.warn(e.getMessage());
+						}
+
+						break;
+					
+					case 3:
+						log.info("Exiting New User Sign Up.");
+						break;
+						
+					default:
+						log.warn("Invalid Selection, Please Choose From 1-3.");
+						break;
+					}
+				}while(creation != 3);
 				
-				log.info("All Current Usernames");
-				try {
-					List<Login_Details> loginList = userservice.getAllLogin();
-					for (int i = 0; i < loginList.size(); i++) {
-						log.info(loginList.get(i).getUsername());
-					}
-				} catch (BusinessException e) {
-					log.warn(e.getMessage());
-				}
-				
-				log.info("Please Enter Unique Username. Has to be greater than 5 letters/numbers:");
-				String username = scanner.nextLine();
-				login.setUsername(username);
-				log.info("Please Enter Unique Password. Has to be greater than 5 letters/numbers:");
-				String password = scanner.nextLine();
-				login.setPassword(password);
-				try {
-					if (userservice.getLogin(login) == 1) {
-						log.info("Log In Info Successfully Created With Below Details:");
-						log.info(login);
-					}
-				} catch (BusinessException e) {
-					log.warn(e.getMessage());
-				}
-
-				// int c_id = 0;
-				// customer.setC_id(c_id);
-				log.info("Please Enter First Name:");
-				customer.setFirstname(scanner.nextLine());
-				log.info("Please Enter Last Name:");
-				customer.setLastname(scanner.nextLine());
-				;
-				log.info("Please Enter Social Security Number (xxx-xx-xxxx). Include '-':");
-				customer.setSsn(scanner.nextLine());
-				log.info("Please Enter Street Address:");
-				customer.setStreetaddress(scanner.nextLine());
-				log.info("Please Enter City:");
-				customer.setCity(scanner.nextLine());
-				log.info("Please Enter State (CAPITAL Initials):");
-				customer.setState(scanner.nextLine());
-				log.info("Please Enter Date of Birth (mm/dd/yyyy). Include 0 if needed beforehand and '/' :");
-				customer.setDob(scanner.nextLine());
-				// log.info("Please Enter Unique Username. Has to be greater than 5
-				// letters/numbers:");
-				// String username = scanner.nextLine();
-				// compare entered to database
-				// login.setUsername(username);
-				customer.setUsername(username);
-				// log.info("Please Enter Unique Password. Has to be greater than 5
-				// letters/numbers:");
-				// String password = scanner.nextLine();
-				// login.setPassword(password);
-				customer.setPassword(password);
-
-				try {
-					if (userservice.newUser(customer) > 0) {
-						log.info("New User Created Successfull With Below Details:");
-						log.info(customer);
-					}
-				} catch (BusinessException e) {
-					log.warn(e.getMessage());
-				}
-
 				break;
 
 			case 2:
@@ -160,7 +165,7 @@ public class BankingMain {
 						}
 						
 						if(CStatusUValidator == 1) {
-							log.warn("Account Currently Under Aprroval. Check Back In Soon");
+							log.warn("Account Currently Under Review. Check Back In Soon");
 							break;
 						}
 						
@@ -231,7 +236,21 @@ public class BankingMain {
 							}
 							switch (COption) {
 							case 1:
-								log.info("Enter Account Number");
+								log.info("Listed Are All Your Current Account(s)");
+								try {
+									List<Account_Details> accountList = accountservice.getCustomerAccounts(UCID);
+									if (accountList.size() > 0) {
+										for(Account_Details ad:accountList) {
+											 log.info("Account ID:" + ad.getA_id()+ "  Account Type:" + ad.getA_type());
+										}
+									} else {
+										log.warn("Invalid Customer ID");
+									}
+								} catch (BusinessException e) {
+									log.warn(e.getMessage());
+								}
+								
+								log.info("Enter Account Number To See Balance");
 								int UAID = 0;
 								try {
 									UAID = Integer.parseInt(scanner.nextLine());
@@ -242,7 +261,7 @@ public class BankingMain {
 									List<Account_Details> accountList = accountservice.getAccountBalance(UAID,UCID);
 									if (accountList.size() > 0) {
 										for(Account_Details ad:accountList) {
-											 log.info(ad.getBalance());
+											 log.info("$"+ad.getBalance());
 										}
 									} else {
 										log.warn("Invalid Account Number");
@@ -283,9 +302,14 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
+								if(UAIDAmount2 < 0) {
+									log.warn("Can't Withdraw Negative Money. Exiting");
+									break;
+								}
+								
 								int newBalance = UAID2B - UAIDAmount2;
 								if(newBalance < 0) {
-									log.warn("You Can't Make Withdrawal Greater Than Account Balance");
+									log.warn("You Can't Make Withdrawal Greater Than Account Balance. Exiting");
 									break;
 								}else {
 									try {
@@ -337,6 +361,11 @@ public class BankingMain {
 								try {
 									UAIDAmount3 = Integer.parseInt(scanner.nextLine());
 								} catch (NumberFormatException e) {
+								}
+								
+								if(UAIDAmount3 < 0) {
+									log.warn("Can't Deposit Negative Money. Exiting");
+									break;
 								}
 								
 								int newBalance2 = UAID3B + UAIDAmount3;
@@ -418,6 +447,11 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
+								if(UAIDAmount4 < 0) {
+									log.warn("Can't Send Negative Money. Exiting");
+									break;
+								}
+								
 								int newBalance4 = UAID4B - UAIDAmount4;
 								int transNewBalance = transBal + UAIDAmount4;
 								if(newBalance4 < 0) {
@@ -461,7 +495,46 @@ public class BankingMain {
 								break;
 
 							case 5:
-								log.info("Currently Under Construction");
+								log.info("Which Type Of Account Would You Like to Make: ");
+								log.info("1) Checking");
+								log.info("2) Saving");
+								int newAccountType = 0;
+								String newAccountTypeS;
+								try {
+									newAccountType = Integer.parseInt(scanner.nextLine());
+								} catch (NumberFormatException e) {
+								}
+								
+								if (newAccountType > 2 || newAccountType <= 0) {
+									log.warn("Invalid Selection, Exiting.");
+									break;
+								} else if (newAccountType == 1) {
+									newAccountTypeS = "Checking";
+								} else {
+									newAccountTypeS = "Saving";
+								}
+								
+								log.info("Initial Deposit Amount: ");
+								int newAccountInitDepo = 0;
+								try {
+									newAccountInitDepo = Integer.parseInt(scanner.nextLine());
+								} catch (NumberFormatException e) {
+								}
+								
+								if(newAccountInitDepo < 0) {
+									log.warn("Can't Deposit Negative Money. Exiting");
+									break;
+								}
+								
+								try {
+									if (accountservice.createAccount(UCID, newAccountTypeS, newAccountInitDepo ) == 1) {
+										log.info("New Account Created");
+									}
+								} catch (BusinessException e) {
+									log.warn(e.getMessage());
+								}
+								
+								
 								break;
 
 							case 6:
@@ -613,7 +686,78 @@ public class BankingMain {
 								break;
 
 							case 2:
-								log.info("Currently Under Construction");
+								int Ecreation = 0;
+								do {
+									log.info("Please Create A New Login 1st, Then Create Your Account With Personal Info");
+									log.info("1) Create Login Details");
+									log.info("2) Create Account With Personal Info");
+									log.info("3) Exit");
+									try {
+										Ecreation = Integer.parseInt(scanner.nextLine());
+									} catch (NumberFormatException e) {
+									}
+									switch (Ecreation) {
+									case 1:
+										Login_Details Elogin = new Login_Details();
+									
+										log.info("Please Enter Unique Username. Has to be greater than 5 letters/numbers:");
+										Elogin.setUsername(scanner.nextLine());
+										log.info("Please Enter Unique Password. Has to be greater than 5 letters/numbers:");
+										Elogin.setPassword(scanner.nextLine());
+										String AStatus = "A";
+										Elogin.setStatus(AStatus);
+										try {
+											if (userservice.getLogin(Elogin) == 1) {
+												log.info("Log In Info Successfully Created With Below Details:");
+												log.info("User Name:" +Elogin.getUsername()+ "  Password:" + Elogin.getPassword());
+											}
+										} catch (BusinessException e) {
+											log.warn(e.getMessage());
+										}
+
+										break;
+										
+									case 2:
+										Customer_Details Ecustomer = new Customer_Details();
+										log.info("Please Enter First Name:");
+										Ecustomer.setFirstname(scanner.nextLine());
+										log.info("Please Enter Last Name:");
+										Ecustomer.setLastname(scanner.nextLine());
+										log.info("Please Enter Social Security Number (xxx-xx-xxxx). Include '-':");
+										Ecustomer.setSsn(scanner.nextLine());
+										log.info("Please Enter Street Address:");
+										Ecustomer.setStreetaddress(scanner.nextLine());
+										log.info("Please Enter City:");
+										Ecustomer.setCity(scanner.nextLine());
+										log.info("Please Enter State (CAPITAL Initials):");
+										Ecustomer.setState(scanner.nextLine());
+										log.info("Please Enter Date of Birth (mm/dd/yyyy). Include 0 if needed beforehand and '/' :");
+										Ecustomer.setDob(scanner.nextLine());
+										log.info("Please Enter Created User Name:");
+										Ecustomer.setUsername(scanner.nextLine());
+										log.info("Please Enter Created Password:");
+										Ecustomer.setPassword(scanner.nextLine());
+										
+										try {
+											if (userservice.newUser(Ecustomer) == 1) {
+												log.info("New User Created Successfully With Below Details:");
+												log.info("Name:"+Ecustomer.getFirstname()+" "+Ecustomer.getLastname()+"Address: "+Ecustomer.getStreetaddress()+","+Ecustomer.getCity()+","+Ecustomer.getState()+"   SSN:"+Ecustomer.getSsn()+"   User Name:" + Ecustomer.getUsername());
+											}
+										} catch (BusinessException e) {
+											log.warn(e.getMessage());
+										}
+
+										break;
+									
+									case 3:
+										log.info("Exiting New User Sign Up.");
+										break;
+										
+									default:
+										log.warn("Invalid Selection, Please Choose From 1-3.");
+										break;
+									}
+								}while(Ecreation != 3);
 								break;
 
 							case 3:
@@ -629,10 +773,11 @@ public class BankingMain {
 									List<Account_Details> accountList = accountservice.getCustomerAccounts(ECID);
 									if (accountList.size() > 0) {
 										for(Account_Details ad:accountList) {
-											 log.info(ad);
+											 log.info("Account ID:" + ad.getA_id()+ "        Account Type:" + ad.getA_type()+"        Account Balance:$" +ad.getBalance());
 										}
 									} else {
 										log.warn("Invalid Customer ID");
+										break;
 									}
 								} catch (BusinessException e) {
 									log.warn(e.getMessage());
@@ -650,7 +795,26 @@ public class BankingMain {
 									}
 									switch (ECOption) {
 									case 1:
-										log.info("Currently Under Construction");
+										log.info("Enter Account ID To See Complete Logs");
+										int logAID = 0;
+										try {
+											logAID = Integer.parseInt(scanner.nextLine());
+										} catch (NumberFormatException e) {
+										}
+										
+										try {
+											List<Transaction_Details> transactionList = accountservice.getTransLog(logAID);
+											if (transactionList.size() > 0) {
+												for(Transaction_Details td:transactionList) {
+													 log.info("Transaction Type:" + td.getT_type()+ "        Transaction Amount:$" + td.getAmount()+ "        Transaction Date:" +td.getDate());
+												}
+											} else {
+												log.warn("Invalid Account ID");
+											}
+										} catch (BusinessException e) {
+											log.warn(e.getMessage());
+										}
+										
 										break;
 
 									case 2:

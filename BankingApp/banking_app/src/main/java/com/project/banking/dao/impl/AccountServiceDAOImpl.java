@@ -13,6 +13,7 @@ import com.project.banking.dao.AccountServiceDAO;
 import com.project.banking.dbutil.PostgresConnection;
 import com.project.banking.exception.BusinessException;
 import com.project.banking.models.Account_Details;
+import com.project.banking.models.Transaction_Details;
 
 import jdk.internal.org.jline.utils.Log;
 
@@ -37,7 +38,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 				accountList.add(account);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			log.warn(e);
+			throw new BusinessException("Internal Error");
 		}
 		return accountList;
 	}
@@ -60,7 +61,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 				accountList.add(account);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			log.warn(e);
+			throw new BusinessException("Internal Error");
 		}
 		return accountList;
 	}
@@ -76,7 +77,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 			preparedStatement.setInt(3, amount);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			log.warn(e);
+			throw new BusinessException("Internal Error");
 		}
 		
 		return c;
@@ -92,10 +93,50 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 			preparedStatement.setInt(2, a_id);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e);
+			throw new BusinessException("Internal Error");
 		}
 		
 		return c;
+	}
+
+	@Override
+	public int createAccount(int c_id, String a_type, int balance) throws BusinessException {
+		int c=0;
+		try(Connection connection=PostgresConnection.getConnection()){
+			String sql = "insert into banking_app_schema.account_details(c_id,a_type,balance) values(?,?,?)";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setInt(1, c_id);
+			preparedStatement.setString(2, a_type);
+			preparedStatement.setInt(3, balance);
+			c=preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal Error");
+		}
+		
+		return c;
+	}
+
+	@Override
+	public List<Transaction_Details> getTransLog(int a_id) throws BusinessException {
+		List<Transaction_Details> transactionList=new ArrayList<>();
+		try(Connection connection=PostgresConnection.getConnection()){
+			String sql = "select t_type, amount, date from banking_app_schema.transaction_details where a_id=?";
+			PreparedStatement preparedStatement=connection.prepareStatement(sql);
+			preparedStatement.setInt(1, a_id);
+			
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Transaction_Details transaction=new Transaction_Details();
+				transaction.setA_id(a_id);
+				transaction.setT_type(resultSet.getString("t_type"));
+				transaction.setAmount(resultSet.getInt("amount"));
+				transaction.setDate(resultSet.getString("date"));
+				transactionList.add(transaction);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal Error");
+		}
+		return transactionList;
 	}
 
 }

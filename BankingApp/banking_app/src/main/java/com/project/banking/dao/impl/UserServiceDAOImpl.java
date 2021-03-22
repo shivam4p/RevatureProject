@@ -32,31 +32,30 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			preparedStatement.setString(2, login.getPassword());
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			//Log.warn(e);
-			throw new BusinessException("Internal Error");
+			throw new BusinessException("Username Already Taken");
 		}
 		
 		return c;
 	}
 
 	@Override
-	public int newUser(Customer_Details newUser) throws BusinessException {
+	public int newUser(Customer_Details customer) throws BusinessException {
 		int c=0;
 		try(Connection connection=PostgresConnection.getConnection()){
 			String sql = "insert into banking_app_schema.customer_details(firstname,lastname,ssn,streetaddress,city,state,username,dob,password) values(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement=connection.prepareStatement(sql);
-			preparedStatement.setString(1, newUser.getFirstname());
-			preparedStatement.setString(2, newUser.getLastname());
-			preparedStatement.setString(3, newUser.getSsn());
-			preparedStatement.setString(4, newUser.getStreetaddress());
-			preparedStatement.setString(5, newUser.getCity());
-			preparedStatement.setString(6, newUser.getState());
-			preparedStatement.setString(7, newUser.getLogin_details().getUsername());
-			preparedStatement.setString(8, newUser.getDob());
-			preparedStatement.setString(9, newUser.getLogin_details().getPassword());
+			preparedStatement.setString(1, customer.getFirstname());
+			preparedStatement.setString(2, customer.getLastname());
+			preparedStatement.setString(3, customer.getSsn());
+			preparedStatement.setString(4, customer.getStreetaddress());
+			preparedStatement.setString(5, customer.getCity());
+			preparedStatement.setString(6, customer.getState());
+			preparedStatement.setString(7, customer.getUsername());
+			preparedStatement.setString(8, customer.getDob());
+			preparedStatement.setString(9, customer.getPassword());
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new BusinessException("Internal Error");
+			throw new BusinessException("Entered User Name Already Has Account");
 		}
 		
 		return c;
