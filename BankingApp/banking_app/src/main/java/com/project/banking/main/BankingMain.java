@@ -1,6 +1,7 @@
 package com.project.banking.main;
 
 import java.sql.Connection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -228,7 +229,7 @@ public class BankingMain {
 							log.info("2) Make Withdrawal");
 							log.info("3) Make Deposit");
 							log.info("4) Tansfer Money");
-							log.info("5) Create Another Account");
+							log.info("5) Create An Account");
 							log.info("6) Exit");
 							try {
 								COption = Integer.parseInt(scanner.nextLine());
@@ -249,6 +250,8 @@ public class BankingMain {
 								} catch (BusinessException e) {
 									log.warn(e.getMessage());
 								}
+								
+								
 								
 								log.info("Enter Account Number To See Balance");
 								int UAID = 0;
@@ -534,6 +537,33 @@ public class BankingMain {
 									log.warn(e.getMessage());
 								}
 								
+								int maxAID = 0;
+								try {
+									List<Account_Details> accountList = accountservice.getCustomerAccounts(UCID);
+									if (accountList.size() > 0) {
+										for(Account_Details ad:accountList) {
+											if (ad.getA_id()>maxAID) {
+												maxAID = ad.getA_id();
+											} else {
+												maxAID = maxAID;
+											}
+												
+										}
+									} else {
+										log.warn("Invalid Customer ID");
+									}
+								} catch (BusinessException e) {
+									log.warn(e.getMessage());
+								}
+								
+								String newAccountInitType = "Initial Deposit";
+								try {
+									if (accountservice.conductTransaction(maxAID,newAccountInitType,newAccountInitDepo) == 1) {
+										log.info("Transaction Completed For New Account");
+									}
+								} catch (BusinessException e) {
+									log.warn(e.getMessage());
+								} 
 								
 								break;
 

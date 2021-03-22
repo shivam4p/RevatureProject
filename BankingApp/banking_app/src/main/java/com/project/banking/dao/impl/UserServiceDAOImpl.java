@@ -32,6 +32,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			preparedStatement.setString(2, login.getPassword());
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Username Already Taken");
 		}
 		
@@ -55,6 +56,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			preparedStatement.setString(9, customer.getPassword());
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Entered User Name Already Has Account");
 		}
 		
@@ -78,6 +80,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 				loginList.add(logins);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		return loginList;
@@ -93,6 +96,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			preparedStatement.setString(2, username);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		
@@ -115,6 +119,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 				customerList.add(customers);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		return customerList;

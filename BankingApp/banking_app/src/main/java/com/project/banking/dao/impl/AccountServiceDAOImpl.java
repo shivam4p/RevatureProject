@@ -38,6 +38,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 				accountList.add(account);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		return accountList;
@@ -61,6 +62,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 				accountList.add(account);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		return accountList;
@@ -77,6 +79,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 			preparedStatement.setInt(3, amount);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		
@@ -93,6 +96,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 			preparedStatement.setInt(2, a_id);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		
@@ -110,6 +114,7 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 			preparedStatement.setInt(3, balance);
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		
@@ -134,9 +139,11 @@ public class AccountServiceDAOImpl implements AccountServiceDAO {
 				transactionList.add(transaction);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			log.warn(e);
 			throw new BusinessException("Internal Error");
 		}
 		return transactionList;
 	}
+
 
 }
