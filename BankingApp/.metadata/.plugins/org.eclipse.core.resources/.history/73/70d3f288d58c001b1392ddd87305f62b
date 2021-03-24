@@ -37,6 +37,9 @@ public class UserServiceImpl implements UserService {
 		if(!UserValidation.isValidUsername(customer.getUsername())) {
 			throw new BusinessException("Entered Username "+customer.getUsername()+" is invalid");
 		}
+		//if(!UserValidation.isValidPassword(customer.getPassword())) {
+			//throw new BusinessException("Entered Password "+customer.getPassword()+" is invalid");
+		//}
 		return userservicedao.newUser(customer);
 	}
 

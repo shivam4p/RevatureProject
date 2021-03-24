@@ -894,7 +894,7 @@ public class BankingMain {
 	public static boolean amountChecker(float amount) {
 		String Checker = Float.toString(amount);
 		if(amount < 0) {
-			log.warn("Amount Can't Be Negative Money. Exiting");
+			log.warn("Can't Withdraw Negative Money. Exiting");
 			return false;
 		} else if(!(Checker.matches("\\d+(\\.\\d{1,2})?"))) {
 			log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");

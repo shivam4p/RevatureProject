@@ -222,6 +222,7 @@ public class BankingMain {
 						
 						int COption = 0;
 						do {
+							log.info("Customer ID: "+UCID );
 							log.info("Welcome Valued Customer! What Would You Like To Do?");
 							log.info("1) Check Account Balance");
 							log.info("2) Make Withdrawal");
@@ -229,7 +230,6 @@ public class BankingMain {
 							log.info("4) Tansfer Money");
 							log.info("5) Create An Account");
 							log.info("6) Exit");
-							log.info("Customer ID: "+UCID );
 							try {
 								COption = Integer.parseInt(scanner.nextLine());
 							} catch (NumberFormatException e) {
@@ -305,6 +305,18 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
+								/*if(UAIDAmount2 < 0) {
+									log.warn("Can't Withdraw Negative Money. Exiting");
+									break;
+								}
+								
+								String WChecker2 = Float.toString(UAIDAmount2);
+	
+								if(!(WChecker2.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
+									break;
+								}*/
+								
 								if(amountChecker(UAIDAmount2) == false) {
 									break;
 								}
@@ -366,7 +378,15 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
-								if(amountChecker(UAIDAmount3) == false) {
+								if(UAIDAmount3 < 0) {
+									log.warn("Can't Deposit Negative Money. Exiting");
+									break;
+								}
+								
+								String WChecker3 = Float.toString(UAIDAmount3);
+								
+								if(!(WChecker3.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
 									break;
 								}
 								
@@ -449,7 +469,15 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
-								if(amountChecker(UAIDAmount4) == false) {
+								if(UAIDAmount4 < 0) {
+									log.warn("Can't Send Negative Money. Exiting");
+									break;
+								}
+								
+								String WChecker4 = Float.toString(UAIDAmount4);
+								
+								if(!(WChecker4.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
 									break;
 								}
 								
@@ -522,7 +550,15 @@ public class BankingMain {
 								} catch (NumberFormatException e) {
 								}
 								
-								if(amountChecker(newAccountInitDepo) == false) {
+								if(newAccountInitDepo < 0) {
+									log.warn("Can't Deposit Negative Money. Exiting");
+									break;
+								}
+								
+								String WChecker5 = Float.toString(newAccountInitDepo);
+								
+								if((!WChecker5.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
 									break;
 								}
 								
@@ -894,11 +930,13 @@ public class BankingMain {
 	public static boolean amountChecker(float amount) {
 		String Checker = Float.toString(amount);
 		if(amount < 0) {
-			log.warn("Amount Can't Be Negative Money. Exiting");
+			log.warn("Can't Withdraw Negative Money. Exiting");
 			return false;
+			//break;
 		} else if(!(Checker.matches("\\d+(\\.\\d{1,2})?"))) {
 			log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
 			return false;
+			//break;
 		} else {
 			return true;
 		}

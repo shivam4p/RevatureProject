@@ -66,4 +66,14 @@ public class UserValidationTest {
 		assertEquals(false, uservalidation.isValidDOB("6/19/97"));
 	}
 
+	/*@Test
+	public void testIsValidAmount() {
+		assertEquals(true, uservalidation.isValidAmount(1000f));
+	}
+	
+	@Test
+	public void testIsNotValidAmount() {
+		assertEquals(false, uservalidation.isValidAmount(-1000f));
+	}*/
+
 }

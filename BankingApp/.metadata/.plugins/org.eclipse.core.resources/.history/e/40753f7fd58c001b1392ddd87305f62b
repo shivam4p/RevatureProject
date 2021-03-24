@@ -47,4 +47,12 @@ public class UserValidation {
 		}
 	}
 	
+	/*public static boolean isValidAmount(float amount) {
+		if(amount > 0 && df.format(amount).matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
+			return true;
+		} else {
+			return false;
+		}
+	}*/
+	
 }

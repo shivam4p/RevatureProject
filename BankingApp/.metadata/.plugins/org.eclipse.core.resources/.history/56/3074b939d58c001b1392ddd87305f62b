@@ -26,6 +26,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public int conductTransaction(int a_id, String t_type, float amount) throws BusinessException {
+		if(!UserValidation.isValidAmount(amount)) {
+			throw new BusinessException("Entered Amount "+amount+" is invalid");
+		}
 		return accountservicedao.conductTransaction(a_id,t_type,amount);
 	}
 

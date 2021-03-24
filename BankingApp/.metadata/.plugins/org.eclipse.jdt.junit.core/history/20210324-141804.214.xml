@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="UserValidationTest" project="banking_app" tests="10" started="10" failures="0" errors="0" ignored="0">
+  <testsuite name="com.project.banking.services.impl.UserValidationTest" time="0.047">
+    <testcase name="testIsValidPassword" classname="com.project.banking.services.impl.UserValidationTest" time="0.043"/>
+    <testcase name="testIsValidState" classname="com.project.banking.services.impl.UserValidationTest" time="0.001"/>
+    <testcase name="testIsNotValidPassword" classname="com.project.banking.services.impl.UserValidationTest" time="0.0"/>
+    <testcase name="testIsNotValidDOB" classname="com.project.banking.services.impl.UserValidationTest" time="0.001"/>
+    <testcase name="testIsNotValidSSN" classname="com.project.banking.services.impl.UserValidationTest" time="0.0"/>
+    <testcase name="testIsValidUsername" classname="com.project.banking.services.impl.UserValidationTest" time="0.0"/>
+    <testcase name="testIsNotValidState" classname="com.project.banking.services.impl.UserValidationTest" time="0.001"/>
+    <testcase name="testIsValidDOB" classname="com.project.banking.services.impl.UserValidationTest" time="0.0"/>
+    <testcase name="testIsValidSSN" classname="com.project.banking.services.impl.UserValidationTest" time="0.0"/>
+    <testcase name="testIsNotValidUsername" classname="com.project.banking.services.impl.UserValidationTest" time="0.001"/>
+  </testsuite>
+</testrun>
