@@ -222,7 +222,6 @@ public class BankingMain {
 						
 						int COption = 0;
 						do {
-							log.info("Customer ID: "+UCID );
 							log.info("Welcome Valued Customer! What Would You Like To Do?");
 							log.info("1) Check Account Balance");
 							log.info("2) Make Withdrawal");
