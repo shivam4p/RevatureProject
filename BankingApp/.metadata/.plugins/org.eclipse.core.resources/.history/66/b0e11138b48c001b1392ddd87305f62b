@@ -57,7 +57,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			log.warn(e);
-			throw new BusinessException("Entered User Name Already Has Account, Or Account Hasn't Been Created");
+			throw new BusinessException("Entered User Name Already Has Account");
 		}
 		
 		return c;
