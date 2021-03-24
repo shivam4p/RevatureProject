@@ -1,0 +1,39 @@
+package com.project.banking.services.impl;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class UserValidationTest {
+
+	@Test
+	public void testIsValidSSN() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsValidState() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsValidUsername() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsValidPassword() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsValidDOB() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsValidAmount() {
+		fail("Not yet implemented");
+	}
+
+}

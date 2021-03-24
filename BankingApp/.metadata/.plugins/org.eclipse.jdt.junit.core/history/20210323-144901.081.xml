@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="AccountServiceDAOImplTest" project="banking_app" tests="6" started="6" failures="0" errors="0" ignored="0">
+  <testsuite name="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="1.024">
+    <testcase name="testGetTransLog" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.224"/>
+    <testcase name="testCreateAccount" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.606"/>
+    <testcase name="testGetCustomerAccounts" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.0"/>
+    <testcase name="testUpdateAccount" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.104"/>
+    <testcase name="testConductTransaction" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.089"/>
+    <testcase name="testGetAccountBalance" classname="com.project.banking.dao.impl.AccountServiceDAOImplTest" time="0.001"/>
+  </testsuite>
+</testrun>

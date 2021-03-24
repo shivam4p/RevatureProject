@@ -1,0 +1,83 @@
+package com.project.banking.dao.impl;
+
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.project.banking.dao.AccountServiceDAO;
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Account_Details;
+import com.project.banking.models.Transaction_Details;
+
+public class AccountServiceDAOImplTest {
+
+	private AccountServiceDAO accountservicedao;
+	
+	@Before
+	public void setup() {
+		
+		accountservicedaoimple = new AccountServiceDAOImpl();
+		
+	}
+	
+	@After
+	public void teardown() {
+	
+	}
+	
+	@Test
+	public void testGetAccountBalance() {
+		try {
+			assertEquals(1500, accountservicedaoimple.getAccountBalance(1,1));
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetCustomerAccounts() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testConductTransaction() {
+		try {
+			assertEquals(1, accountservicedaoimple.conductTransaction(1, "Deposit", 500));
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testUpdateAccount() {
+		try {
+			assertEquals(1, accountservicedaoimple.updateAccount(2500, 2));
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testCreateAccount() {
+		try {
+			assertEquals(1, accountservicedaoimple.createAccount(5, "Savings", 1000));
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetTransLog() {
+		fail("Not yet implemented");
+	}
+
+}

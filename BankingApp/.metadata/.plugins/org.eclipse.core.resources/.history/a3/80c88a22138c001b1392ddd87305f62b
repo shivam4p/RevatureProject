@@ -1,0 +1,62 @@
+package com.project.banking.dao.impl;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.project.banking.models.Login_Details;
+
+public class UserServiceDAOImplTest {
+
+	private UserServiceDAOImpl userservicedao;
+	private static ArrayList<Login_Details> expectedLoginDetails;
+	private static ArrayList<Customer_Details> expectedCustomerDetails;
+	
+	@Before
+	public void setup() {
+		ArrayList expectedLoginDetails = new ArrayList<>();
+		ArrayList expectedCustomerDetails = new ArrayList<>();
+		
+		Login_Details l1 = new Login_Details("User1", "Pass1", "U");
+		Login_Details l2 = new Login_Details("User2", "Pass2", "A");
+		Login_Details l3 = new Login_Details("User3", "Pass3", "R");
+		
+		expectedLoginDetails.add(l1);
+		expectedLoginDetails.add(l2);
+		expectedLoginDetails.add(l3);
+		
+		
+		userservicedao = new UserServiceDAOImpl();
+	}
+	
+	
+	@Test
+	public void testGetLogin() {
+		//assertEquals(1, userservicedao.getLogin();
+	}
+
+	@Test
+	public void testNewUser() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAllLogin() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testUpdateLoginStatus() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetCID() {
+		fail("Not yet implemented");
+	}
+
+}

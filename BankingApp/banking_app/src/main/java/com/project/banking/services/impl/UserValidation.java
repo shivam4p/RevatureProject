@@ -1,7 +1,11 @@
 package com.project.banking.services.impl;
 
+import java.text.DecimalFormat;
+
 public class UserValidation {
 
+	static DecimalFormat df = new DecimalFormat("0.00");
+	
 	public static boolean isValidSSN(String ssn) {
 		if (ssn != null && ssn.matches("[0-9]{3}-[0-9]{2}-[0-9]{4}")) {
 			return true;
@@ -43,8 +47,8 @@ public class UserValidation {
 		}
 	}
 	
-	public static boolean isValidAmount(int amount) {
-		if(amount > 0) {
+	public static boolean isValidAmount(float amount) {
+		if(amount > 0 && df.format(amount).matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
 			return true;
 		} else {
 			return false;

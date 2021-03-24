@@ -11,7 +11,6 @@ public class Customer_Details {
 	private String state;
 	private String username;
 	private String dob;
-	private String password;
 	private Login_Details login_details;
 	
 	public Customer_Details() {
@@ -105,14 +104,6 @@ public class Customer_Details {
 		this.dob = dob;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public Login_Details getLogin_details() {
 		return login_details;
 	}
@@ -125,9 +116,10 @@ public class Customer_Details {
 	public String toString() {
 		return "Customer_Details [c_id=" + c_id + ", firstname=" + firstname + ", lastname=" + lastname + ", ssn=" + ssn
 				+ ", streetaddress=" + streetaddress + ", city=" + city + ", state=" + state + ", username=" + username
-				+ ", dob=" + dob + ", password=" + password + ", login_details=" + login_details + "]";
+				+ ", dob=" + dob + ", login_details=" + login_details + "]";
 	}
 
+	
 	
 	
 	

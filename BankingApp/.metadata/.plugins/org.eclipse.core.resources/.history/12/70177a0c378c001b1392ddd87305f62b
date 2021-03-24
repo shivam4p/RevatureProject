@@ -1,0 +1,69 @@
+package com.project.banking.dao.impl;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.project.banking.exception.BusinessException;
+import com.project.banking.models.Customer_Details;
+import com.project.banking.models.Login_Details;
+
+public class UserServiceDAOImplTest {
+
+	private UserServiceDAOImpl userservicedao;
+	private static Login_Details expectedLoginDetails;
+	private static ArrayList<Customer_Details> expectedCustomerDetails;
+	
+	@Before
+	public void setup() {
+		ArrayList expectedLoginDetails = new ArrayList<>();
+		ArrayList expectedCustomerDetails = new ArrayList<>();
+		
+		Login_Details l1 = new Login_Details("User1", "Pass1", "U");
+		Login_Details l2 = new Login_Details("User2", "Pass2", "A");
+		Login_Details l3 = new Login_Details("User3", "Pass3", "R");
+		
+		Customer_Details c1 = new Customer_Details(1, "Tim", "Bob","123-12-1234", "123 ABC St.", "Houston", "TX", "User1", "05/21/1964");
+		Customer_Details c2 = new Customer_Details(2, "Tom", "Bobby","125-12-1234", "123 DEF St.", "Austin", "TX", "User2", "11/12/1984");
+		
+		
+		expectedLoginDetails.add(l1);
+		expectedLoginDetails.add(l2);
+		expectedLoginDetails.add(l3);
+		
+		expectedCustomerDetails.add(c1);
+		expectedCustomerDetails.add(c2);
+		
+		
+		userservicedao = new UserServiceDAOImpl();
+	}
+	
+	@After
+	public void teardown() {
+		expectedLoginDetails = null;
+		expectedCustomerDetails = null;
+	}
+	
+	
+	@Test
+	public void testGetLogin() {
+		try {
+			assertEquals(1, userservicedao.getLogin(expectedLoginDetails));
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testNewUser() {
+		fail("Not yet implemented");
+	}
+
+}
+
+

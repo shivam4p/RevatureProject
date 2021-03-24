@@ -43,7 +43,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 	public int newUser(Customer_Details customer) throws BusinessException {
 		int c=0;
 		try(Connection connection=PostgresConnection.getConnection()){
-			String sql = "insert into banking_app_schema.customer_details(firstname,lastname,ssn,streetaddress,city,state,username,dob,password) values(?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into banking_app_schema.customer_details(firstname,lastname,ssn,streetaddress,city,state,username,dob) values(?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement=connection.prepareStatement(sql);
 			preparedStatement.setString(1, customer.getFirstname());
 			preparedStatement.setString(2, customer.getLastname());
@@ -53,7 +53,7 @@ public class UserServiceDAOImpl implements UserServiceDAO{
 			preparedStatement.setString(6, customer.getState());
 			preparedStatement.setString(7, customer.getUsername());
 			preparedStatement.setString(8, customer.getDob());
-			preparedStatement.setString(9, customer.getPassword());
+		//	preparedStatement.setString(9, customer.getPassword());
 			c=preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			log.warn(e);

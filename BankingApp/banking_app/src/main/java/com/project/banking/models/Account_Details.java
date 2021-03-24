@@ -5,7 +5,7 @@ public class Account_Details {
 	private int a_id;
 	private int c_id;
 	private String a_type;
-	private int balance;
+	private float balance;
 	private Customer_Details customer_details;
 	
 	public Account_Details() {
@@ -13,7 +13,7 @@ public class Account_Details {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account_Details(int a_id, int c_id, String a_type, int balance) {
+	public Account_Details(int a_id, int c_id, String a_type, float balance) {
 		super();
 		this.a_id = a_id;
 		this.c_id = c_id;
@@ -45,11 +45,11 @@ public class Account_Details {
 		this.a_type = a_type;
 	}
 
-	public int getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 

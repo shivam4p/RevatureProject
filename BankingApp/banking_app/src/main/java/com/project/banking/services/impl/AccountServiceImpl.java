@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int conductTransaction(int a_id, String t_type, int amount) throws BusinessException {
+	public int conductTransaction(int a_id, String t_type, float amount) throws BusinessException {
 		if(!UserValidation.isValidAmount(amount)) {
 			throw new BusinessException("Entered Amount "+amount+" is invalid");
 		}
@@ -33,12 +33,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int updateAccount(int balance, int a_id) throws BusinessException {
+	public int updateAccount(float balance, int a_id) throws BusinessException {
 		return accountservicedao.updateAccount(balance, a_id);
 	}
 
 	@Override
-	public int createAccount(int c_id, String a_type, int balance) throws BusinessException {
+	public int createAccount(int c_id, String a_type, float balance) throws BusinessException {
 		return accountservicedao.createAccount(c_id, a_type, balance);
 	}
 

@@ -5,7 +5,7 @@ public class Transaction_Details {
 	private int t_id;
 	private int a_id;
 	private String t_type;
-	private int amount;
+	private float amount;
 	private String date;
 	private Account_Details account_details;
 	
@@ -14,7 +14,7 @@ public class Transaction_Details {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction_Details(int t_id, int a_id, String t_type, int amount, String date) {
+	public Transaction_Details(int t_id, int a_id, String t_type, float amount, String date) {
 		super();
 		this.t_id = t_id;
 		this.a_id = a_id;
@@ -47,11 +47,11 @@ public class Transaction_Details {
 		this.t_type = t_type;
 	}
 
-	public int getAmount() {
+	public float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 

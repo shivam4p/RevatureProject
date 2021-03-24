@@ -84,8 +84,6 @@ public class BankingMain {
 						customer.setDob(scanner.nextLine());
 						log.info("Please Enter Created User Name:");
 						customer.setUsername(scanner.nextLine());
-						log.info("Please Enter Created Password:");
-						customer.setPassword(scanner.nextLine());
 						
 						try {
 							if (userservice.newUser(customer) == 1) {
@@ -277,7 +275,7 @@ public class BankingMain {
 							case 2:
 								log.info("Enter Account Number");
 								int UAID2 = 0;
-								int UAID2B = 0;
+								float UAID2B = 0;
 								String type2 = "Withdrawal";
 								try {
 									UAID2 = Integer.parseInt(scanner.nextLine());
@@ -298,11 +296,18 @@ public class BankingMain {
 									log.warn(e.getMessage());
 								}
 								
-								int UAIDAmount2 = 0;
+								float UAIDAmount2 = 0;
 								log.info("Enter Amount To Withdraw");
 								try {
-									UAIDAmount2 = Integer.parseInt(scanner.nextLine());
+									UAIDAmount2 = Float.parseFloat(scanner.nextLine());
 								} catch (NumberFormatException e) {
+								}
+								
+								String WChecker2 = Float.toString(UAIDAmount2);
+	
+								if(!(WChecker2.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
+									break;
 								}
 								
 								if(UAIDAmount2 < 0) {
@@ -310,7 +315,7 @@ public class BankingMain {
 									break;
 								}
 								
-								int newBalance = UAID2B - UAIDAmount2;
+								float newBalance = UAID2B - UAIDAmount2;
 								if(newBalance < 0) {
 									log.warn("You Can't Make Withdrawal Greater Than Account Balance. Exiting");
 									break;
@@ -338,7 +343,7 @@ public class BankingMain {
 							case 3:
 								log.info("Enter Account Number");
 								int UAID3 = 0;
-								int UAID3B = 0;
+								float UAID3B = 0;
 								String type3 = "Deposit";
 								try {
 									UAID3 = Integer.parseInt(scanner.nextLine());
@@ -359,11 +364,18 @@ public class BankingMain {
 									log.warn(e.getMessage());
 								}
 								
-								int UAIDAmount3 = 0;
+								float UAIDAmount3 = 0;
 								log.info("Enter Amount To Deposit");
 								try {
-									UAIDAmount3 = Integer.parseInt(scanner.nextLine());
+									UAIDAmount3 = Float.parseFloat(scanner.nextLine());
 								} catch (NumberFormatException e) {
+								}
+								
+								String WChecker3 = Float.toString(UAIDAmount3);
+								
+								if(!(WChecker3.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
+									break;
 								}
 								
 								if(UAIDAmount3 < 0) {
@@ -371,7 +383,7 @@ public class BankingMain {
 									break;
 								}
 								
-								int newBalance2 = UAID3B + UAIDAmount3;
+								float newBalance2 = UAID3B + UAIDAmount3;
 									try {
 										if (accountservice.conductTransaction(UAID3, type3, UAIDAmount3) == 1) {
 											log.info("Transaction Completed");
@@ -393,7 +405,7 @@ public class BankingMain {
 							case 4:
 								log.info("Enter Your Account Number You Wish To Send Money From");
 								int UAID4 = 0;
-								int UAID4B = 0;
+								float UAID4B = 0;
 								String type4 = "Transfer Withdrawal";
 								try {
 									UAID4 = Integer.parseInt(scanner.nextLine());
@@ -426,7 +438,7 @@ public class BankingMain {
 									transCID = Integer.parseInt(scanner.nextLine());
 								} catch (NumberFormatException e) {
 								}
-								int transBal = 0;
+								float transBal = 0;
 								String transType = "Transfer Deposit";
 								try {
 									List<Account_Details> accountList = accountservice.getAccountBalance(transAID,transCID);
@@ -443,11 +455,18 @@ public class BankingMain {
 								}
 								
 								
-								int UAIDAmount4 = 0;
+								float UAIDAmount4 = 0;
 								log.info("Enter Amount To Send");
 								try {
-									UAIDAmount4 = Integer.parseInt(scanner.nextLine());
+									UAIDAmount4 = Float.parseFloat(scanner.nextLine());
 								} catch (NumberFormatException e) {
+								}
+								
+								String WChecker4 = Float.toString(UAIDAmount4);
+								
+								if(!(WChecker4.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
+									break;
 								}
 								
 								if(UAIDAmount4 < 0) {
@@ -455,8 +474,8 @@ public class BankingMain {
 									break;
 								}
 								
-								int newBalance4 = UAID4B - UAIDAmount4;
-								int transNewBalance = transBal + UAIDAmount4;
+								float newBalance4 = UAID4B - UAIDAmount4;
+								float transNewBalance = transBal + UAIDAmount4;
 								if(newBalance4 < 0) {
 									log.warn("You Can't Send Money Greater Than Account Balance");
 									break;
@@ -522,6 +541,14 @@ public class BankingMain {
 								try {
 									newAccountInitDepo = Integer.parseInt(scanner.nextLine());
 								} catch (NumberFormatException e) {
+								}
+								
+								String WChecker5 = Float.toString(newAccountInitDepo);
+								log.info(WChecker5);
+								
+								if((!WChecker5.matches("\\d+(\\.\\d{1,2})?"))) {
+									log.warn("Invalid. Please Enter Up To 2 Decimal Places. Exiting");
+									break;
 								}
 								
 								if(newAccountInitDepo < 0) {
@@ -765,8 +792,6 @@ public class BankingMain {
 										Ecustomer.setDob(scanner.nextLine());
 										log.info("Please Enter Created User Name:");
 										Ecustomer.setUsername(scanner.nextLine());
-										log.info("Please Enter Created Password:");
-										Ecustomer.setPassword(scanner.nextLine());
 										
 										try {
 											if (userservice.newUser(Ecustomer) == 1) {
