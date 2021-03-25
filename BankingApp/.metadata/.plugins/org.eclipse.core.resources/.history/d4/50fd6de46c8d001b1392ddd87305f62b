@@ -419,11 +419,6 @@ public class BankingMain {
 									transAID = Integer.parseInt(scanner.nextLine());
 								} catch (NumberFormatException e) {
 								}
-								
-								if(UAID4 == transAID) {
-									log.warn("Accont ID's Can't Be The Same");
-									break;
-								}
 								int transCID = 0;
 								log.info("Enter Recipient's Customer ID Number");
 								try {
